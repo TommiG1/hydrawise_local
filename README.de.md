@@ -2,6 +2,8 @@
 
 **Sprachen:** [English](README.md) · Deutsch
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/tommigraf)
+
 Home-Assistant-Custom-Integration für Hunter-Hydrawise-Controller über die **lokale HTTP-API** (Firmware unter 3.0). Läuft **parallel** zur offiziellen Cloud-Integration (`hydrawise`).
 
 ## Installation
@@ -40,6 +42,14 @@ Gerätenamen enden mit **`(Local)`**, damit sie sich von Cloud-Entitäten unters
 ```bash
 PYTHONPATH=custom_components pytest tests/ -v
 ```
+
+## Unterstützung
+
+Wenn dir diese Integration Zeit spart, kannst du per PayPal spenden:
+
+[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/tommigraf)
+
+[paypal.com/paypalme/tommigraf](https://www.paypal.com/paypalme/tommigraf)
 
 ## Lizenz
 

@@ -2,6 +2,8 @@
 
 **Languages:** English · [Deutsch](README.de.md)
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/tommigraf)
+
 Home Assistant custom integration for Hunter Hydrawise controllers via the **local HTTP API** (firmware below 3.0). Runs **in parallel** to the official cloud integration (`hydrawise`).
 
 ## Installation
@@ -40,6 +42,14 @@ Device names end with **`(Local)`** so they are easy to tell apart from cloud en
 ```bash
 PYTHONPATH=custom_components pytest tests/ -v
 ```
+
+## Support
+
+If this integration saves you time, you can donate via PayPal:
+
+[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/paypalme/tommigraf)
+
+[paypal.com/paypalme/tommigraf](https://www.paypal.com/paypalme/tommigraf)
 
 ## License
 
