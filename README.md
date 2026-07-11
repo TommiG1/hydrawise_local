@@ -1,6 +1,8 @@
 # Hydrawise Local
 
-Home Assistant custom integration for Hunter Hydrawise controllers via the **local HTTP API** (firmware &lt; 3.0). Runs **in parallel** to the official cloud integration (`hydrawise`).
+**Languages:** English · [Deutsch](README.de.md)
+
+Home Assistant custom integration for Hunter Hydrawise controllers via the **local HTTP API** (firmware below 3.0). Runs **in parallel** to the official cloud integration (`hydrawise`).
 
 ## Installation
 
