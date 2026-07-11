@@ -15,14 +15,14 @@ _SPEC.loader.exec_module(_DATA)
 parse_schedule = _DATA.parse_schedule
 
 FIXTURE = {
-    "name": "Bewässerung Graf",
+    "name": "Test Controller",
     "time": 1_700_000_000,
     "running": [{"relay_id": 10, "relay": 2, "time_left": 120, "current": 0}],
     "relays": [
         {
             "relay_id": 10,
             "relay": 2,
-            "name": "Terrasse",
+            "name": "Zone 2",
             "normalRuntime": 25,
             "run_seconds": 1500,
             "time": 3600,
@@ -37,10 +37,10 @@ FIXTURE = {
 
 def test_parse_schedule_running_and_suspended() -> None:
     schedule = parse_schedule(FIXTURE)
-    assert schedule.controller_name == "Bewässerung Graf"
+    assert schedule.controller_name == "Test Controller"
     assert len(schedule.zones) == 1
     zone = schedule.zones[0]
-    assert zone.name == "Terrasse"
+    assert zone.name == "Zone 2"
     assert zone.is_running is True
     assert zone.remaining_run_seconds == 120
     assert zone.suspended is True
