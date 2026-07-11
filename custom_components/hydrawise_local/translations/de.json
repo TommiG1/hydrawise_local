@@ -1,0 +1,62 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hydrawise Local",
+        "description": "Direkte Verbindung zum Hydrawise-Controller im lokalen Netzwerk. Diese Integration läuft parallel zur offiziellen Cloud-Integration.",
+        "data": {
+          "host": "IP-Adresse oder Hostname des Controllers",
+          "username": "Lokaler Benutzername",
+          "password": "Lokales Passwort",
+          "scan_interval": "Aktualisierungsintervall (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Controller nicht erreichbar. IP-Adresse und Netzwerk prüfen.",
+      "invalid_auth": "Anmeldung fehlgeschlagen. Das lokale Passwort aus den Controller-Einstellungen verwenden, nicht das Hydrawise-Cloud-Passwort."
+    },
+    "abort": {
+      "already_configured": "Dieser Controller ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Hydrawise Local Optionen",
+        "data": {
+          "scan_interval": "Aktualisierungsintervall (Sekunden)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "zone_run": {
+        "name": "Starten"
+      }
+    },
+    "binary_sensor": {
+      "watering": {
+        "name": "Bewässert"
+      },
+      "suspended": {
+        "name": "Ausgesetzt"
+      }
+    },
+    "sensor": {
+      "next_run": {
+        "name": "Nächster Lauf"
+      },
+      "time_until_next_run": {
+        "name": "Zeit bis nächster Lauf"
+      },
+      "last_watered": {
+        "name": "Zuletzt bewässert"
+      },
+      "remaining_run_time": {
+        "name": "Verbleibende Laufzeit"
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hydrawise Local",
+        "description": "Connect directly to your Hydrawise controller on the local network. This integration runs in parallel to the official cloud integration.",
+        "data": {
+          "host": "Controller IP address or hostname",
+          "username": "Local username",
+          "password": "Local password",
+          "scan_interval": "Update interval (seconds)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the controller. Check the IP address and network.",
+      "invalid_auth": "Authentication failed. Use the local password from the controller settings, not your Hydrawise cloud password."
+    },
+    "abort": {
+      "already_configured": "This controller is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Hydrawise Local options",
+        "data": {
+          "scan_interval": "Update interval (seconds)"
+        }
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "zone_run": {
+        "name": "Run"
+      }
+    },
+    "binary_sensor": {
+      "watering": {
+        "name": "Watering"
+      },
+      "suspended": {
+        "name": "Suspended"
+      }
+    },
+    "sensor": {
+      "next_run": {
+        "name": "Next run"
+      },
+      "time_until_next_run": {
+        "name": "Time until next run"
+      },
+      "last_watered": {
+        "name": "Last watered"
+      },
+      "remaining_run_time": {
+        "name": "Remaining run time"
+      }
+    }
+  }
+}
