@@ -25,9 +25,18 @@ Add `https://github.com/TommiG1/hydrawise_local` as a custom integration reposit
 | `binary_sensor` | Watering | Zone is currently running |
 | `binary_sensor` | Suspended | Automatic schedule paused |
 | `sensor` | Next run | Timestamp |
-| `sensor` | Time until next run | Duration |
-| `sensor` | Last watered | Timestamp |
-| `sensor` | Remaining run time | Duration (while running) |
+| `sensor` | Time until next run | Human-readable duration |
+| `sensor` | Remaining run time | Human-readable; `0 Sek` when idle |
+| `sensor` | Last watered | Timestamp (often unavailable when API returns `0`) |
+| `sensor` | Default runtime | `normalRuntime` in minutes |
+| `sensor` | Run duration | `run_seconds` |
+| `sensor` | Watering interval | `frequency` as readable duration |
+| `sensor` | Next run weekday | `timestr` (e.g. `Sat`) |
+| `sensor` | Zone number | Physical `relay` number (diagnostic) |
+| `sensor` | Zone type | `type` (diagnostic; unused zones often `110`) |
+| `sensor` | Sensor port | Linked sensor port (diagnostic) |
+| `sensor` | Current (running) | `running.current` while watering (diagnostic) |
+| `sensor` | Water (running) | `running.water_int` while watering (diagnostic) |
 
 Device names end with **`(Local)`** so they are easy to tell apart from cloud entities.
 
@@ -35,6 +44,7 @@ Device names end with **`(Local)`** so they are easy to tell apart from cloud en
 
 - Local commands are **not** reflected in the Hydrawise mobile/web app.
 - Cloud (`hydrawise`) and local (`hydrawise_local`) entities can coexist — pick one source per automation.
+- Daily water use / flow-meter history comes from the cloud API only.
 - Control uses `set_manual_data.php` with `period_id=998` and local zone number `relay`.
 
 ## Tests

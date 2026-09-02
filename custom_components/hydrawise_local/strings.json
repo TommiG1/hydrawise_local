@@ -56,6 +56,33 @@
       },
       "remaining_run_time": {
         "name": "Remaining run time"
+      },
+      "default_runtime": {
+        "name": "Default runtime"
+      },
+      "run_duration": {
+        "name": "Run duration"
+      },
+      "watering_interval": {
+        "name": "Watering interval"
+      },
+      "next_run_day": {
+        "name": "Next run weekday"
+      },
+      "relay_number": {
+        "name": "Zone number"
+      },
+      "zone_type": {
+        "name": "Zone type"
+      },
+      "sensor_port": {
+        "name": "Sensor port"
+      },
+      "running_current": {
+        "name": "Current (running)"
+      },
+      "running_water": {
+        "name": "Water (running)"
       }
     }
   }

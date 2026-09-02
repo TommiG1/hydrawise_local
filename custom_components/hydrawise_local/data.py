@@ -24,6 +24,11 @@ class HydrawiseZoneData:
     remaining_run_seconds: int
     zone_type: int
     sensor: int
+    frequency_seconds: int
+    timestr: str
+    running_current: int | None
+    running_water: str | None
+    running_water_int: float | None
 
     @property
     def default_run_seconds(self) -> int:
@@ -44,6 +49,36 @@ class HydrawiseScheduleData:
     zones: tuple[HydrawiseZoneData, ...]
 
 
+def format_duration_de(seconds: int) -> str:
+    """Format seconds as a compact German duration string (T/Std/Min/Sek)."""
+    total_seconds = max(0, int(seconds))
+    if total_seconds == 0:
+        return "0 Sek"
+
+    days, remainder = divmod(total_seconds, 86400)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, secs = divmod(remainder, 60)
+
+    parts: list[str] = []
+    if days:
+        parts.append(f"{days} T")
+    if days or hours:
+        parts.append(f"{hours} Std")
+    if days or hours or minutes:
+        parts.append(f"{minutes} Min")
+    parts.append(f"{secs} Sek")
+    return " ".join(parts)
+
+
+def _optional_float(value: Any) -> float | None:
+    if value is None or value == "":
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def parse_schedule(payload: dict[str, Any]) -> HydrawiseScheduleData:
     """Parse the raw local API response into stable zone objects."""
     controller_epoch = int(payload.get("time", 0))
@@ -57,6 +92,18 @@ def parse_schedule(payload: dict[str, Any]) -> HydrawiseScheduleData:
         running = running_by_relay_id.get(relay_id)
         next_run_in_seconds = int(row.get("time", 0))
         last_water_epoch = row.get("lastwaterepoch")
+        running_current = None
+        running_water = None
+        running_water_int = None
+        if running is not None:
+            if "current" in running:
+                try:
+                    running_current = int(running["current"])
+                except (TypeError, ValueError):
+                    running_current = None
+            if running.get("water") not in (None, ""):
+                running_water = str(running["water"])
+            running_water_int = _optional_float(running.get("water_int"))
         zones.append(
             HydrawiseZoneData(
                 relay=int(row["relay"]),
@@ -70,7 +117,7 @@ def parse_schedule(payload: dict[str, Any]) -> HydrawiseScheduleData:
                 ),
                 last_watered_at=(
                     datetime.fromtimestamp(int(last_water_epoch), tz=timezone.utc)
-                    if last_water_epoch
+                    if last_water_epoch and int(last_water_epoch) > 0
                     else None
                 ),
                 suspended=bool(int(row.get("suspended") or 0)),
@@ -78,6 +125,11 @@ def parse_schedule(payload: dict[str, Any]) -> HydrawiseScheduleData:
                 remaining_run_seconds=int((running or {}).get("time_left") or 0),
                 zone_type=int(row.get("type") or 0),
                 sensor=int(row.get("sensor") or 0),
+                frequency_seconds=int(row.get("frequency") or 0),
+                timestr=str(row.get("timestr") or "").strip(),
+                running_current=running_current,
+                running_water=running_water,
+                running_water_int=running_water_int,
             )
         )
 

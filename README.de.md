@@ -25,9 +25,18 @@ Home-Assistant-Custom-Integration für Hunter-Hydrawise-Controller über die **l
 | `binary_sensor` | Bewässert | Zone läuft gerade |
 | `binary_sensor` | Ausgesetzt | Automatik pausiert |
 | `sensor` | Nächster Lauf | Zeitstempel |
-| `sensor` | Zeit bis nächster Lauf | Dauer |
-| `sensor` | Zuletzt bewässert | Zeitstempel |
-| `sensor` | Verbleibende Laufzeit | Dauer (nur wenn aktiv) |
+| `sensor` | Zeit bis nächster Lauf | Lesbar (z. B. `2 T 20 Std 52 Min`) |
+| `sensor` | Verbleibende Laufzeit | Lesbar; `0 Sek` wenn Zone idle, sonst Restzeit |
+| `sensor` | Zuletzt bewässert | Zeitstempel (oft `unavailable`, wenn API `0` liefert) |
+| `sensor` | Standard-Laufzeit | `normalRuntime` in Minuten |
+| `sensor` | Laufdauer | `run_seconds` |
+| `sensor` | Bewässerungsintervall | `frequency` lesbar (z. B. `3 T 0 Min`) |
+| `sensor` | Nächster Lauf Wochentag | `timestr` (z. B. `Sat`) |
+| `sensor` | Zonennummer | Physische `relay`-Nummer (Diagnostic) |
+| `sensor` | Zonentyp | `type` (Diagnostic; ungenutzte Zonen oft `110`) |
+| `sensor` | Sensor-Port | Zugeordneter Sensor-Port (Diagnostic) |
+| `sensor` | Strom (laufend) | `running.current` nur während Lauf (Diagnostic) |
+| `sensor` | Wasser (laufend) | `running.water_int` nur während Lauf (Diagnostic) |
 
 Gerätenamen enden mit **`(Local)`**, damit sie sich von Cloud-Entitäten unterscheiden.
 
@@ -35,6 +44,7 @@ Gerätenamen enden mit **`(Local)`**, damit sie sich von Cloud-Entitäten unters
 
 - Lokale Befehle erscheinen **nicht** in der Hydrawise-App.
 - Cloud- (`hydrawise`) und lokale (`hydrawise_local`) Entitäten können parallel existieren — pro Automation eine Quelle wählen.
+- Tagesverbrauch / Flow-Meter-Historie kommt nur aus der Cloud-API.
 - Steuerung nutzt `set_manual_data.php` mit `period_id=998` und lokaler Zonennummer `relay`.
 
 ## Tests
