@@ -44,12 +44,20 @@ class HydrawiseLocalZoneSwitch(HydrawiseLocalEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         zone = self.zone_data or self.zone
-        duration = zone.default_run_seconds
+        duration_raw = kwargs.get("duration")
+        if duration_raw is not None:
+            api_duration = int(duration_raw)
+            if api_duration == 0:
+                api_duration = None
+            elif api_duration < 0:
+                raise HomeAssistantError("Duration must be zero or greater seconds")
+        else:
+            api_duration = zone.default_run_seconds
         try:
             await self.coordinator.api.async_command_zone(
                 "run",
                 zone.relay,
-                duration=duration,
+                duration=api_duration,
             )
         except (HydrawiseCommandError, HydrawiseLocalError) as err:
             raise HomeAssistantError(str(err)) from err
