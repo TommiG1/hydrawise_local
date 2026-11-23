@@ -143,6 +143,8 @@ class HydrawiseLocalZoneSensor(HydrawiseLocalEntity, SensorEntity):
 
         key = self.entity_description.key
         if key == "time_until_next_run":
+            if zone.next_run_at is None:
+                return None
             return {"seconds": zone.next_run_in_seconds}
         if key == "remaining_run_time":
             return {
@@ -169,6 +171,8 @@ class HydrawiseLocalZoneSensor(HydrawiseLocalEntity, SensorEntity):
         if key == "next_run":
             return zone.next_run_at
         if key == "time_until_next_run":
+            if zone.next_run_at is None:
+                return None
             return format_duration_de(zone.next_run_in_seconds)
         if key == "remaining_run_time":
             return format_duration_de(zone.remaining_run_seconds)

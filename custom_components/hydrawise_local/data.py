@@ -6,6 +6,9 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any
 
+# The controller reports a huge placeholder when no run is scheduled.
+MAX_VALID_NEXT_RUN_SECONDS = 365 * 24 * 3600
+
 
 @dataclass(frozen=True, slots=True)
 class HydrawiseZoneData:
@@ -17,7 +20,7 @@ class HydrawiseZoneData:
     normal_runtime_minutes: int
     run_seconds: int
     next_run_in_seconds: int
-    next_run_at: datetime
+    next_run_at: datetime | None
     last_watered_at: datetime | None
     suspended: bool
     is_running: bool
@@ -91,6 +94,13 @@ def parse_schedule(payload: dict[str, Any]) -> HydrawiseScheduleData:
         relay_id = int(row["relay_id"])
         running = running_by_relay_id.get(relay_id)
         next_run_in_seconds = int(row.get("time", 0))
+        next_run_at: datetime | None = None
+        if 0 <= next_run_in_seconds <= MAX_VALID_NEXT_RUN_SECONDS:
+            next_run_at = datetime.fromtimestamp(
+                controller_epoch + next_run_in_seconds, tz=timezone.utc
+            )
+        else:
+            next_run_in_seconds = 0
         last_water_epoch = row.get("lastwaterepoch")
         running_current = None
         running_water = None
@@ -112,9 +122,7 @@ def parse_schedule(payload: dict[str, Any]) -> HydrawiseScheduleData:
                 normal_runtime_minutes=int(row.get("normalRuntime") or 0),
                 run_seconds=int(row.get("run_seconds") or row.get("run") or 0),
                 next_run_in_seconds=next_run_in_seconds,
-                next_run_at=datetime.fromtimestamp(
-                    controller_epoch + next_run_in_seconds, tz=timezone.utc
-                ),
+                next_run_at=next_run_at,
                 last_watered_at=(
                     datetime.fromtimestamp(int(last_water_epoch), tz=timezone.utc)
                     if last_water_epoch and int(last_water_epoch) > 0

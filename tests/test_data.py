@@ -108,3 +108,19 @@ def test_parse_schedule_fixture_file_if_present() -> None:
     payload = json.loads(fixture_path.read_text())
     schedule = parse_schedule(payload)
     assert schedule.zones
+
+
+def test_parse_schedule_placeholder_next_run_is_none() -> None:
+    payload = {
+        "name": "Test",
+        "time": 1_700_000_000,
+        "running": [],
+        "relays": [
+            {"relay_id": 1, "relay": 1, "name": "Zone 1", "time": 999_999_999},
+            {"relay_id": 2, "relay": 2, "name": "Zone 2", "time": 0},
+        ],
+    }
+    zones = parse_schedule(payload).zones
+    assert zones[0].next_run_at is None
+    assert zones[0].next_run_in_seconds == 0
+    assert zones[1].next_run_at is not None
