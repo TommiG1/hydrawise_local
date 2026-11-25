@@ -122,10 +122,6 @@ class HydrawiseLocalZoneSensor(HydrawiseLocalEntity, SensorEntity):
             return False
 
         key = self.entity_description.key
-        if key == "last_watered":
-            return zone.last_watered_at is not None
-        if key == "next_run_day":
-            return bool(zone.timestr)
         if key == "watering_interval":
             return zone.frequency_seconds > 0
         if key == "running_current":

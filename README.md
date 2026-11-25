@@ -27,11 +27,11 @@ Add `https://github.com/TommiG1/hydrawise_local` as a custom integration reposit
 | `sensor` | Next run | Timestamp |
 | `sensor` | Time until next run | Human-readable duration |
 | `sensor` | Remaining run time | Human-readable; `0 Sek` when idle |
-| `sensor` | Last watered | Timestamp (often unavailable when API returns `0`) |
+| `sensor` | Last watered | Timestamp (`unknown` when the API returns `0`) |
 | `sensor` | Default runtime | `normalRuntime` in minutes |
 | `sensor` | Run duration | `run_seconds` |
 | `sensor` | Watering interval | `frequency` as readable duration |
-| `sensor` | Next run weekday | `timestr` (e.g. `Sat`) |
+| `sensor` | Next run weekday | `timestr` (e.g. `Sat`; `unknown` when empty) |
 | `sensor` | Zone number | Physical `relay` number (diagnostic) |
 | `sensor` | Zone type | `type` (diagnostic; unused zones often `110`) |
 | `sensor` | Sensor port | Linked sensor port (diagnostic) |
