@@ -27,11 +27,11 @@ Home-Assistant-Custom-Integration für Hunter-Hydrawise-Controller über die **l
 | `sensor` | Nächster Lauf | Zeitstempel |
 | `sensor` | Zeit bis nächster Lauf | Lesbar (z. B. `2 T 20 Std 52 Min`) |
 | `sensor` | Verbleibende Laufzeit | Lesbar; `0 Sek` wenn Zone idle, sonst Restzeit |
-| `sensor` | Zuletzt bewässert | Zeitstempel (oft `unavailable`, wenn API `0` liefert) |
+| `sensor` | Zuletzt bewässert | Zeitstempel (`unknown`, wenn API `0` liefert) |
 | `sensor` | Standard-Laufzeit | `normalRuntime` in Minuten |
 | `sensor` | Laufdauer | `run_seconds` |
 | `sensor` | Bewässerungsintervall | `frequency` lesbar (z. B. `3 T 0 Min`) |
-| `sensor` | Nächster Lauf Wochentag | `timestr` (z. B. `Sat`) |
+| `sensor` | Nächster Lauf Wochentag | `timestr` (z. B. `Sat`; `unknown`, wenn leer) |
 | `sensor` | Zonennummer | Physische `relay`-Nummer (Diagnostic) |
 | `sensor` | Zonentyp | `type` (Diagnostic; ungenutzte Zonen oft `110`) |
 | `sensor` | Sensor-Port | Zugeordneter Sensor-Port (Diagnostic) |
